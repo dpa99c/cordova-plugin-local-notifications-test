@@ -26,10 +26,18 @@
 
     <div class="selector">
         <label for="priority">Priority</label>
-        <input id="priority" type="checkbox" />
+        <select id="priority">
+            <option value="0">DEFAULT</option>
+            <option value="-1">LOW</option>
+            <option value="-2">MIN</option>
+            <option value="1">HIGH</option>
+            <option value="2">MAX</option>
+        </select>
     </div>
 
     <button id="schedule-notification">Schedule notification</button>
+
+    <button id="settings">App settings</button>
 
     <xmp id="log-output"></xmp>
 

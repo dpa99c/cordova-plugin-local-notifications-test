@@ -11,6 +11,7 @@ function onDeviceReady() {
     $('body').addClass(platform);
 
     $('#schedule-notification').on('click', scheduleNotification);
+    $('#settings').on('click', cordova.plugins.diagnostic.switchToSettings);
 
     var defaults = cordova.plugins.notification.local.getDefaults();
     log('Notification plugin defaults: ' + JSON.stringify(defaults));
@@ -18,13 +19,20 @@ function onDeviceReady() {
 
 function scheduleNotification(){
     var opts = {
+        channel: "test_channel",
+        channelDescription: "Test Channel",
         title: "Test notification",
         text: "Test notification body",
+        triggerInApp: true,
         trigger: { in: 5, unit: 'second' }
     };
-    opts.foreground = $('#foreground').is(':checked');
+    opts.foreground = $('#foreground').is(':checked')
+    opts.priority = $('#priority').val();
+
+
 
     showAlert("Notification will trigger in 5 seconds of dimissing this prompt", "Notification scheduled", function(){
+        log('Scheduled notification with options: ' + JSON.stringify(opts));
         cordova.plugins.notification.local.schedule(opts);
     });
 }
