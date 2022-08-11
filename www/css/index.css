@@ -1,0 +1,37 @@
+body,
+ul{
+    padding: 20px;
+    margin: 0;
+}
+
+body.ios{
+    /* iPhone 10+: safe padding in all orientations */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+}
+
+
+h2{
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+button{
+    margin: 10px;
+}
+
+#log-output{
+    background-color: lightgrey;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+#log-output > span{
+    line-height: 20px;
+    padding: 4px;
+}
+
+.error{
+    color: red;
+}
