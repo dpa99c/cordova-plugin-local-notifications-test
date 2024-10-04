@@ -10,4 +10,9 @@
     <allow-intent href="https://*/*" />
 
     <preference name="cordova.plugins.diagnostic.modules" value="" />
+
+    <platform name="android">
+        <resource-file src="res/notification_icon/android/ic_notification_direction_light.xml" target="app/src/main/res/drawable/ic_notification_direction_light.xml" />
+        <resource-file src="res/notification_icon/android/ic_notification_direction_dark.xml" target="app/src/main/res/drawable/ic_notification_direction_dark.xml" />
+    </platform>
 </widget>

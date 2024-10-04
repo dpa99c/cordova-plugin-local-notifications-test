@@ -33,7 +33,8 @@ function scheduleNotification(){
         channelName: "Test Channel",
         title: "Test notification",
         text: "Test notification body",
-        trigger: { in: 5, unit: 'second' }
+        trigger: { in: 5, unit: 'second' },
+        icon: "res://ic_notification_direction.xml"
     };
     opts.foreground = $('#foreground').is(':checked')
     opts.priority = $('#priority').val();
@@ -52,7 +53,8 @@ function notificationNow(){
         channelName: "Test Channel",
         title: "Test notification",
         text: "Test notification body",
-        trigger: { in: 0, unit: 'second' }
+        trigger: { in: 0, unit: 'second' },
+        icon: "res://ic_notification_direction.xml"
     };
     opts.foreground = $('#foreground').is(':checked')
     opts.priority = $('#priority').val();
