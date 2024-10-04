@@ -1,4 +1,4 @@
-var platform, $output;
+var platform, $output, noticationPlugin;
 
 
 function onDeviceReady() {
@@ -11,19 +11,28 @@ function onDeviceReady() {
     $('body').addClass(platform);
 
     $('#schedule-notification').on('click', scheduleNotification);
+    $('#notification-now').on('click', notificationNow);
+
     $('#settings').on('click', cordova.plugins.diagnostic.switchToSettings);
 
-    var defaults = cordova.plugins.notification.local.getDefaults();
+    $('#check-notification-permission').on('click', checkNotificationPermission);
+    $('#request-notification-permission').on('click', requestNotificationPermission);
+    $('#check-alarm-permission').on('click', checkAlarmPermission);
+    $('#request-alarm-permission').on('click', requestAlarmPermission);
+
+
+    noticationPlugin = cordova.plugins.notification.local;
+
+    var defaults = noticationPlugin.getDefaults();
     log('Notification plugin defaults: ' + JSON.stringify(defaults));
 }
 
 function scheduleNotification(){
     var opts = {
-        channel: "test_channel",
-        channelDescription: "Test Channel",
+        channelId: "test_channel",
+        channelName: "Test Channel",
         title: "Test notification",
         text: "Test notification body",
-        triggerInApp: true,
         trigger: { in: 5, unit: 'second' }
     };
     opts.foreground = $('#foreground').is(':checked')
@@ -33,10 +42,60 @@ function scheduleNotification(){
 
     showAlert("Notification will trigger in 5 seconds of dimissing this prompt", "Notification scheduled", function(){
         log('Scheduled notification with options: ' + JSON.stringify(opts));
-        cordova.plugins.notification.local.schedule(opts);
+        noticationPlugin.schedule(opts);
     });
 }
 
+function notificationNow(){
+    var opts = {
+        channelId: "test_channel",
+        channelName: "Test Channel",
+        title: "Test notification",
+        text: "Test notification body",
+        trigger: { in: 0, unit: 'second' }
+    };
+    opts.foreground = $('#foreground').is(':checked')
+    opts.priority = $('#priority').val();
+
+    log('Triggering notification now with options: ' + JSON.stringify(opts));
+    noticationPlugin.schedule(opts);
+}
+
+function checkNotificationPermission(){
+    noticationPlugin.hasPermission(function(granted){
+        showAlert("Notification permission: " + (granted ? "Granted" : "Not granted"), "Notification permission");
+    });
+}
+
+function requestNotificationPermission(){
+    noticationPlugin.hasPermission(function(granted){
+        if(granted){
+            showAlert("Notification permission already granted", "Notification permission");
+        }else{
+            noticationPlugin.requestPermission(function(granted){
+                showAlert("Notification permission: " + (granted ? "Granted" : "Not granted"), "Notification permission");
+            });
+        }
+    });
+}
+
+function checkAlarmPermission(){
+    noticationPlugin.canScheduleExactAlarms(function(granted){
+        showAlert("Alarm permission: " + (granted ? "Granted" : "Not granted"), "Alarm permission");
+    });
+}
+
+function requestAlarmPermission(){
+    noticationPlugin.canScheduleExactAlarms(function(granted){
+        if(granted){
+            showAlert("Alarm permission already granted", "Alarm permission");
+        }else{
+            showAlert("You must grant alarm permission to schedule exact alarms", "Alarm permission", function(){
+                noticationPlugin.openAlarmSettings();
+            });
+        }
+    });
+}
 
 // UI logging
 function prependLogMessage(message){

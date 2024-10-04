@@ -23,6 +23,7 @@ button{
 
 #log-output{
     background-color: lightgrey;
+    color: black;
     white-space: normal;
     word-wrap: break-word;
 }
