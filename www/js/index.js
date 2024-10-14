@@ -27,6 +27,17 @@ function onDeviceReady() {
     log('Notification plugin defaults: ' + JSON.stringify(defaults));
 }
 
+function getIcon(){
+    var icon;
+    var selectedIcon = $('#icon').val();
+    if(platform === 'android'){
+        icon = "res://"+selectedIcon;
+    }else{
+        icon = "res://notification.png";
+    }
+    return icon;
+}
+
 function scheduleNotification(){
     var opts = {
         channelId: "test_channel",
@@ -34,12 +45,11 @@ function scheduleNotification(){
         title: "Test notification",
         text: "Test notification body",
         trigger: { in: 5, unit: 'second' },
-        icon: "res://ic_notification_direction.xml"
+        icon: getIcon(),
+        smallIcon: getIcon()
     };
     opts.foreground = $('#foreground').is(':checked')
     opts.priority = $('#priority').val();
-
-
 
     showAlert("Notification will trigger in 5 seconds of dimissing this prompt", "Notification scheduled", function(){
         log('Scheduled notification with options: ' + JSON.stringify(opts));
@@ -54,7 +64,8 @@ function notificationNow(){
         title: "Test notification",
         text: "Test notification body",
         trigger: { in: 0, unit: 'second' },
-        icon: "res://ic_notification_direction.xml"
+        icon: getIcon(),
+        smallIcon: getIcon()
     };
     opts.foreground = $('#foreground').is(':checked')
     opts.priority = $('#priority').val();

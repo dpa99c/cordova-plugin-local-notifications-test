@@ -18,7 +18,9 @@
     "cordova-plugin-device": "^2.1.0",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-local-notification": "github:dpa99c/cordova-plugin-local-notifications#dev",
-    "cordova.plugins.diagnostic": "^7.1.0"
+    "cordova.plugins.diagnostic": "^7.1.0",
+    "q": "^1.5.1",
+    "xml2js": "^0.6.2"
   },
   "cordova": {
     "plugins": {

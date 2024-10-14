@@ -10,6 +10,10 @@ body.ios{
     padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
 }
 
+body:not(.android) .android-only,
+body:not(.ios) .ios-only{
+    display: none !important;
+}
 
 h2{
     text-align: center;
