@@ -28,12 +28,10 @@ function onDeviceReady() {
 }
 
 function getIcon(){
-    var icon;
+    var icon = "res://notification.png";
     var selectedIcon = $('#icon').val();
     if(platform === 'android'){
         icon = "res://"+selectedIcon;
-    }else{
-        icon = "res://notification.png";
     }
     return icon;
 }
